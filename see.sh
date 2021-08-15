@@ -1,4 +1,4 @@
 #!/bin/bash
 
-python translator.py
+python translate.py
 google-chrome output.html &>/dev/null &
