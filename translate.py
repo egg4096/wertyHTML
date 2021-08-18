@@ -18,14 +18,17 @@ for line in lines:
             split = line.partition("[")
             try:
                 spaces = split[0].partition(split[0].strip()[0])[0]
-                add(f"{spaces}<{split[0].strip()}>{split[2][:-2]}</{split[0].strip()}>\n")
+                text = split[0].strip()
+                textCut = text.partition(" ")[0]
+                add(f"{spaces}<{text}>{split[2][:-2]}</{textCut}>\n")
             except:
                 pass
         else:
             level -= 1
             try:
                 spaces = tags[level].split(tags[level].strip()[0])[0]
-                add(f"{spaces}</{tags[level].strip()}>\n")
+                textCut = tags[level].strip().partition(" ")[0]
+                add(f"{spaces}</{textCut}>\n")
                 tags.pop(level)
             except Exception:
                 pass
@@ -49,4 +52,3 @@ output_file.write("</html>\n");
 
 input_file.close()
 output_file.close()
-
