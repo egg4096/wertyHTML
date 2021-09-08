@@ -5,7 +5,7 @@ level = 0
 lines = input_file.readlines()
 tags = []
 
-output_file.write("<!DOCTYPE html>\n\n<html>\n")
+output_file.write("<!doctype html>\n\n<html>\n")
 
 def add(text):
     output_file.write(f"\t{text}")
