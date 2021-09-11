@@ -21,7 +21,7 @@ for line in lines:
                 text = split[0].strip()
                 textCut = text.partition(" ")[0]
                 add(f"{spaces}<{text}>{split[2][:-2]}</{textCut}>\n")
-            except:
+            except Exception:
                 pass
         else:
             level -= 1
