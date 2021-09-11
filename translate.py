@@ -15,35 +15,47 @@ for line in lines:
 
     if line_stripped.endswith("]"):
         if "[" in line:
-            split = line.partition("[")
+            partition = line.partition("[")
+
             try:
-                spaces = split[0].partition(split[0].strip()[0])[0]
-                text = split[0].strip()
-                textCut = text.partition(" ")[0]
-                add(f"{spaces}<{text}>{split[2][:-2]}</{textCut}>\n")
+                text = partition[0].strip()
+                spaces = partition[0].partition(text[0])[0]
+                text_cut = text.partition(" ")[0]
+                add(f"{spaces}<{text}>{partition[2][:-2]}</{text_cut}>\n")
             except Exception:
                 pass
         else:
             level -= 1
+
             try:
-                spaces = tags[level].split(tags[level].strip()[0])[0]
-                textCut = tags[level].strip().partition(" ")[0]
-                add(f"{spaces}</{textCut}>\n")
+                spaces = tags[level].partition(tags[level].strip()[0])[0]
+                text_cut = tags[level].strip().partition(" ")[0]
+                add(f"{spaces}</{text_cut}>\n")
                 tags.pop(level)
             except Exception:
                 pass
     elif line_stripped.endswith("[") and line_stripped != "[":
-        level += 1
         bit = line.partition("[")[0]
+        bit_stripped = bit.strip()
+
         try:
-            spaces = bit.partition(bit.strip()[0])[0]
+            spaces = bit.partition(bit_stripped[0])[0]
         except Exception:
             pass
-        tags.append(bit)
-        add(f"{spaces}<{bit.strip()}>\n")
+
+        if bit_stripped[0] == "]":
+            bit = bit_stripped[1:]
+            add(f"{spaces}</{bit.strip()}>\n")
+            tags.pop(level - 1)
+        else:
+            level += 1
+
+        bit_stripped = bit.strip()
+        tags.append(f"{spaces}{bit_stripped}")
+        add(f"{spaces}<{bit_stripped}>\n")
     elif lines[lines.index(line) + 1 if lines.index(line) + 1 < len(lines) else len(lines) - 1].strip() == "[":
         level += 1
-        tags.append(line_stripped)
+        tags.append(f"{spaces}{line_stripped}")
         add(f"<{line_stripped}>\n")
     elif line_stripped != "[" and not line_stripped.startswith("#"):
         add(line)
