@@ -64,3 +64,6 @@ output_file.write("</html>\n");
 
 input_file.close()
 output_file.close()
+
+if tags:
+	print(f"Warning! Unclosed tags: {tags}.")
