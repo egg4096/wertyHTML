@@ -16,12 +16,26 @@ for line in lines:
     if line_stripped.endswith("]"):
         if "[" in line:
             partition = line.partition("[")
+            closes = partition[2].count("]") - 1
 
             try:
-                text = partition[0].strip()
+                text = partition[0].strip() # h2 with properties
                 spaces = partition[0].partition(text[0])[0]
-                text_cut = text.partition(" ")[0]
-                add(f"{spaces}<{text}>{partition[2][:-2]}</{text_cut}>\n")
+                text_cut = text.partition(" ")[0] # h2
+                content = partition[2][:partition[2].index("]")]
+                add(f"{spaces}<{text}>{content}</{text_cut}>\n")
+
+
+                for _ in range(closes):
+                    level -= 1
+
+                    try:
+                        spaces = tags[level].partition(tags[level].strip()[0])[0]
+                        text_cut = tags[level].strip().partition(" ")[0]
+                        add(f"{spaces}</{text_cut}>\n")
+                        tags.pop(level)
+                    except Exception:
+                        pass
             except Exception:
                 pass
         else:
@@ -66,4 +80,4 @@ input_file.close()
 output_file.close()
 
 if tags:
-	print(f"Warning! Unclosed tags: {tags}.")
+    print(f"Warning! Unclosed tags: {tags}.")
