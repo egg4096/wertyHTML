@@ -36,6 +36,5 @@ head [
 
 body
 [
-    h2 [or in really any other way]
-]
+    h2 [or in really any other way] ]
 ```
