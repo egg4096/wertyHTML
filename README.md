@@ -1,7 +1,6 @@
 # wertyHTML
 ### Description:
-HTML with less typing.
-###### *this thing's in development, but I'm too lazy to develop.*
+HTML with a little less typing.
 
 ### Installation:
 On GitHub, press `Code -> Download ZIP`. After downloading the ZIP, extract it.
